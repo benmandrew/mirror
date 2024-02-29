@@ -1,0 +1,4 @@
+(executable
+ (public_name examples)
+ (name examples)
+ (libraries mirror cairo2))

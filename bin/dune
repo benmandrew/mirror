@@ -1,4 +1,4 @@
 (executable
  (public_name mirror)
  (name main)
- (libraries mirror))
+ (libraries mirror cairo2))

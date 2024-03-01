@@ -9,7 +9,7 @@ Experiments with repeating geometric patterns, inspired by "Islamic Patterns: An
   <img src="examples/output_b.png" width="49%" />
 </p>
 <p>
-  <img src="examples/output_c.png" width="49%" />
+  <img src="examples/output_e.png" width="49%" />
   <img src="examples/output_d.png" width="49%" />
 </p>
 

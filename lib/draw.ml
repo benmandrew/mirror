@@ -21,3 +21,7 @@ let polygon cf ?(lw = 2.0) (p : polygon) =
   List.iter f offsets;
   Cairo.Path.close cf.cr;
   Cairo.stroke cf.cr
+
+let v cf ?(lw = 2.0) = function
+  | C c -> circle cf ~lw c
+  | P p -> polygon cf ~lw p

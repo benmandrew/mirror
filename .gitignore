@@ -31,3 +31,6 @@ setup.log
 _opam/
 
 .vscode
+
+.DS_Store
+output.png

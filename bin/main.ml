@@ -42,7 +42,7 @@ let draw cf =
   let targets =
     [ (p1, 10, -.twopi /. 4., true); (p2, 20, 0., true); (p3, 0, 0., true) ]
   in
-  let ps = fractal_repeat p0 targets ~d:2. ~r:1. in
+  let ps = Fractal.repeat p0 targets ~d:2. ~r:1. in
   List.iter (Draw.v cf ~lw:2.0) ps
 
 let () =

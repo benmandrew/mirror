@@ -12,7 +12,7 @@ let a cf =
       }
   in
   let targets = [ (p, 10, 0., false); (p, 5, 0., false) ] in
-  let ps = fractal_repeat p targets ~d:2. ~r:1. in
+  let ps = Fractal.repeat p targets ~d:2. ~r:1. in
   List.iter (Draw.v cf ~lw:15.) ps
 
 let b cf =
@@ -26,13 +26,13 @@ let b cf =
       }
   in
   let targets = [ (p, 10, 0., false); (p, 10, 0., false); (p, 5, 0., false) ] in
-  let ps = fractal_repeat p targets ~d:2. ~r:1. in
+  let ps = Fractal.repeat p targets ~d:2. ~r:1. in
   List.iter (Draw.v cf ~lw:2.0) ps
 
 let c cf =
   let c = C { p = { x = 0.; y = 0. }; r = 200. } in
   let targets = [ (c, 6, 0., true) ] in
-  List.iter (Draw.v cf) @@ fractal_repeat c targets ~d:1. ~r:1.
+  List.iter (Draw.v cf) @@ Fractal.repeat c targets ~d:1. ~r:1.
 
 let d cf =
   let p =
@@ -45,7 +45,7 @@ let d cf =
       }
   in
   let targets = [ (p, 12, 0., false); (p, 6, 0., false); (p, 6, 0., false) ] in
-  let ps = fractal_repeat p targets ~d:2.25 ~r:1. in
+  let ps = Fractal.repeat p targets ~d:2.25 ~r:1. in
   List.iter (Draw.v cf ~lw:2.0) ps
 
 let e cf =
@@ -89,7 +89,7 @@ let e cf =
   let targets =
     [ (p1, 10, -.twopi /. 4., true); (p2, 20, 0., true); (p3, 0, 0., true) ]
   in
-  let ps = fractal_repeat p0 targets ~d:2. ~r:1. in
+  let ps = Fractal.repeat p0 targets ~d:2. ~r:1. in
   List.iter (Draw.v cf ~lw:2.) ps
 
 open Mirror

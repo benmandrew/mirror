@@ -7,7 +7,6 @@ type circle = { p : pos; r : float }
 type polygon = { p : pos; r : float; rot_angle : float; n_segments : int }
 type shape = C of circle | P of polygon
 
-let get_pos = function C c -> c.p | P p -> p.p
 let get_r = function C c -> c.r | P p -> p.r
 let get_rot_angle = function C _ -> 0. | P p -> p.rot_angle
 let twopi = 2. *. Float.pi

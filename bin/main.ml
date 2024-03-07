@@ -2,48 +2,84 @@ open Mirror
 open Geometry
 
 let draw cf =
-  let scale = 2.75 in
-  let p0 =
-    P
+  let scale = 24. in
+  let t0 =
+    Fractal.
       {
-        p = { x = 0.; y = 0. };
-        r = 150. *. scale;
-        n_segments = 5;
-        rot_angle = -.Float.pi /. 2.;
+        s =
+          P
+            {
+              p = { x = 0.; y = 0. };
+              r = 10. *. scale;
+              n_segments = 5;
+              rot_angle = Float.pi;
+            };
+        render = true;
       }
   in
-  let p1 =
-    P
+  let t1 =
+    Fractal.
       {
-        p = { x = 0.; y = 0. };
-        r = 150. *. scale;
-        n_segments = 10;
-        rot_angle = -.Float.pi /. 2.;
+        s =
+          P
+            {
+              p = { x = 0.; y = 0. };
+              r = 10. *. scale;
+              n_segments = 10;
+              rot_angle = Float.pi /. 2.;
+            };
+        render = true;
       }
   in
-  let p2 =
-    P
+  let t2 =
+    Fractal.
       {
-        p = { x = 0.; y = 0. };
-        r = 60. *. scale;
-        n_segments = 7;
-        rot_angle = -.Float.pi /. 2.;
+        s =
+          P
+            {
+              p = { x = 0.; y = 0. };
+              r = 1. *. scale;
+              n_segments = 3;
+              rot_angle = Float.pi /. 2.;
+            };
+        render = true;
       }
   in
-  let p3 =
-    P
+  let r4 =
+    Fractal.
       {
-        p = { x = 0.; y = 0. };
-        r = 50. *. scale;
-        n_segments = 5;
-        rot_angle = -.Float.pi /. 4.;
+        target = t2;
+        n = 10;
+        rot_offset = Float.pi /. 5.;
+        d = 1.8;
+        children = [];
       }
   in
-  let targets =
-    [ (p1, 10, -.twopi /. 4., true); (p2, 20, 0., true); (p3, 0, 0., true) ]
+  let r3 =
+    Fractal.
+      {
+        target = t2;
+        n = 10;
+        rot_offset = Float.pi /. 24.;
+        d = 1.15;
+        children = [];
+      }
   in
-  let ps = Fractal.repeat p0 targets ~d:2. ~r:1. in
-  List.iter (Draw.v cf ~lw:2.0) ps
+  let r2 =
+    Fractal.
+      {
+        target = t2;
+        n = 10;
+        rot_offset = -.Float.pi /. 24.;
+        d = 1.15;
+        children = [];
+      }
+  in
+  let r1 =
+    Fractal.{ target = t1; n = 10; rot_offset = 0.; d = 1.; children = [] }
+  in
+  let shapes = Fractal.v t0 [ r1; r2; r3; r4 ] in
+  List.iter (Draw.v cf ~lw:4.0) shapes
 
 let () =
   let width = 1000 in

@@ -1,43 +1,51 @@
 open Geometry
 
-type target = { s : Geometry.shape; n : int; r_offset : float; render : bool }
-type tree = Leaf of target | Branch of target * tree list
+type target = { s : shape; render : bool }
 
-(** Generate [n] new shapes arranged around [s_origin], templated on [s_target].
-    - [d] is the relative distance offset of each polygon's
-      centre as a proportion of [s_origin.r]
-    - [r] is the relative new radius of each polygon
-      as a proportion of [s_origin.r]
-    - The shapes are arranged starting at angle [offset] *)
-let v s_origin s_target ~n ~d ~r ~rot =
-  let offset a =
-    let r = get_r s_origin in
-    { x = r *. d *. cos a; y = r *. d *. sin a }
-  in
+type reflect = {
+  target : target;
+  n : int;
+  rot_offset : float;
+  d : float;
+  children : reflect list;
+}
+
+type tree_root = target * reflect list
+
+let generate_shape target new_pos rot_angle a =
+  match target.s with
+  | C c -> C { p = new_pos; r = c.r }
+  | P p ->
+      P
+        {
+          p = new_pos;
+          r = p.r;
+          n_segments = p.n_segments;
+          rot_angle = rot_angle +. a +. (-.twopi /. 4.);
+        }
+
+let rec reflect pos r { target; n; rot_offset; d; children } =
+  let rot_angle = get_rot_angle target.s in
   let f a =
-    let pos = get_pos s_origin in
-    match s_target with
-    | C c -> C { p = add_pos pos @@ offset a; r = r *. c.r }
-    | P p ->
-        P
-          {
-            p = add_pos pos @@ offset a;
-            r = r *. p.r;
-            n_segments = p.n_segments;
-            rot_angle = get_rot_angle s_origin +. a +. (-.twopi /. 4.);
-          }
+    let offset = { x = r *. d *. cos a; y = r *. d *. sin a } in
+    let new_pos = add_pos pos offset in
+    let this_shape =
+      if target.render then [ generate_shape target new_pos rot_angle a ]
+      else []
+    in
+    let this_r = get_r target.s in
+    let child_shapes = List.map (reflect new_pos this_r) children in
+    this_shape @ List.concat child_shapes
   in
-  List.map f @@ angles ~offset:rot n
+  angles ~offset:rot_offset n |> List.map f |> List.concat
 
-(** Recursively apply the fractal operation, with each element of
-    [ns] being the number of newly generated shapes per shape
-    of the previous iteration. *)
-let repeat s_origin targets ~d ~r =
-  List.fold_left
-    (fun ss (s_target, n, rot, include_prev) ->
-      let ss_new =
-        List.concat
-        @@ List.map (fun s_prev -> v s_prev s_target ~n ~d ~r ~rot) ss
-      in
-      if include_prev then ss_new @ ss else ss_new)
-    [ s_origin ] targets
+let v root children =
+  let center = { x = 0.; y = 0. } in
+  let rot_angle = get_rot_angle root.s in
+  let initial =
+    if root.render then [ generate_shape root center rot_angle 0. ] else []
+  in
+  let r = get_r root.s in
+  let child_shapes = List.map (reflect center r) children in
+  List.iter (fun l -> Printf.printf "%d\n" @@ List.length l) child_shapes;
+  initial @ List.concat child_shapes

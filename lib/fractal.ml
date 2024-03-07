@@ -43,9 +43,10 @@ let v root children =
   let center = { x = 0.; y = 0. } in
   let rot_angle = get_rot_angle root.s in
   let initial =
-    if root.render then [ generate_shape root center rot_angle 0. ] else []
+    if root.render then Set.singleton @@ generate_shape root center rot_angle 0.
+    else Set.empty
   in
   let r = get_r root.s in
-  let child_shapes = List.map (reflect center r) children in
-  List.iter (fun l -> Printf.printf "%d\n" @@ List.length l) child_shapes;
-  initial @ List.concat child_shapes
+  let child_shapes = List.concat @@ List.map (reflect center r) children in
+  Printf.printf "%d\n" @@ List.length child_shapes;
+  Set.union initial @@ Set.of_list child_shapes

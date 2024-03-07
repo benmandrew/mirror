@@ -66,7 +66,7 @@ let a cf =
   in
   let r1 = { target = t1; n = 10; rot_offset = 0.; d = 1.; children = [] } in
   let shapes = v t0 [ r1; r2; r3; r4 ] in
-  List.iter (Draw.v cf ~lw:4.0) shapes
+  Set.iter (Draw.v cf ~lw:4.0) shapes
 
 let b cf =
   let t =
@@ -91,7 +91,7 @@ let b cf =
   let r0 =
     { target = t; n = 10; rot_offset = 0.; d = 2.0; children = [ r1 ] }
   in
-  List.iter (Draw.v cf ~lw:3.0) @@ v t [ r0 ]
+  Set.iter (Draw.v cf ~lw:3.0) @@ v t [ r0 ]
 
 let c cf =
   let t = { s = C { p = { x = 0.; y = 0. }; r = 200. }; render = false } in
@@ -107,7 +107,7 @@ let c cf =
   let r2 = { target = t; n = 6; rot_offset = 0.; d = 1.0; children = [ r3 ] } in
   let r1 = { target = t; n = 6; rot_offset = 0.; d = 1.0; children = [ r2 ] } in
   let r0 = { target = t; n = 6; rot_offset = 0.; d = 1.0; children = [ r1 ] } in
-  List.iter (Draw.v cf ~lw:10.0) @@ v t [ r0 ]
+  Set.iter (Draw.v cf ~lw:10.0) @@ v t [ r0 ]
 
 let d cf =
   let t =
@@ -138,7 +138,7 @@ let d cf =
   let r0 =
     { target = t; n = 12; rot_offset = 0.; d = 2.25; children = [ r1 ] }
   in
-  List.iter (Draw.v cf ~lw:5.0) @@ v t [ r0 ]
+  Set.iter (Draw.v cf ~lw:5.0) @@ v t [ r0 ]
 
 let e cf =
   let scale = 3.25 in
@@ -207,7 +207,7 @@ let e cf =
       children = [ r1 ];
     }
   in
-  List.iter (Draw.v cf ~lw:2.) @@ v t0 [ r0 ]
+  Set.iter (Draw.v cf ~lw:2.) @@ v t0 [ r0 ]
 
 open Mirror
 

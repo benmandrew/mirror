@@ -79,7 +79,7 @@ let draw cf =
     Fractal.{ target = t1; n = 10; rot_offset = 0.; d = 1.; children = [] }
   in
   let shapes = Fractal.v t0 [ r1; r2; r3; r4 ] in
-  List.iter (Draw.v cf ~lw:4.0) shapes
+  Set.iter (Draw.v cf ~lw:4.0) shapes
 
 let () =
   let width = 1000 in

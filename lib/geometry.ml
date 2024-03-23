@@ -1,11 +1,11 @@
-type pos = { x : float; y : float }
+type pos = { x : float; y : float } [@@deriving yojson]
 
 let add_pos { x = x0; y = y0 } { x = x1; y = y1 } =
   { x = x0 +. x1; y = y0 +. y1 }
 
-type circle = { p : pos; r : float }
-type polygon = { p : pos; r : float; rot_angle : float; n_segments : int }
-type shape = C of circle | P of polygon
+type circle = { p : pos; r : float } [@@deriving yojson]
+type polygon = { p : pos; r : float; rot_angle : float; n_segments : int } [@@deriving yojson]
+type shape = C of circle | P of polygon [@@deriving yojson]
 
 let cascade cs =
   List.fold_left (fun acc c -> if Int.equal acc 0 then c else acc) 0 cs

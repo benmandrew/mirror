@@ -3,53 +3,8 @@ open Geometry
 open Fractal
 
 let draw cf =
-  let scale = 24. in
-  let t0 =
-    {
-      s =
-        P
-          {
-            p = { x = 0.; y = 0. };
-            r = 7.5 *. scale;
-            n_segments = 10;
-            rot_angle = Float.pi;
-          };
-      render = true;
-    }
-  in
-  let t1 =
-    {
-      s =
-        P
-          {
-            p = { x = 0.; y = 0. };
-            r = 3. *. scale;
-            n_segments = 5;
-            rot_angle = Float.pi /. 2.;
-          };
-      render = true;
-    }
-  in
-  let t2 =
-    {
-      s =
-        P
-          {
-            p = { x = 0.; y = 0. };
-            r = 1. *. scale;
-            n_segments = 3;
-            rot_angle = Float.pi /. 2.;
-          };
-      render = true;
-    }
-  in
-  let r2 =
-    { target = t2; n = 10; rot_offset = Float.pi /. 5.; d = 1.8; children = [] }
-  in
-  let r1 = { target = t1; n = 10; rot_offset = 0.; d = 1.5; children = [] } in
-  ignore (r1, r2);
-  let shapes = v t0 [ r1 ] in
-  Set.iter (Draw.v cf ~lw:4.0) shapes
+  let (t, r) = Conf.parse "bin/input.json" in
+  Set.iter (Draw.v cf ~lw:4.0) @@ v t r
 
 let () =
   let width = 1000 in

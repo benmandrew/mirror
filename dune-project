@@ -5,22 +5,16 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github benmandrew/mirror))
 
-(authors "Author Name")
+(authors "Ben Andrew")
 
-(maintainers "Maintainer Name")
+(maintainers "Ben Andrew")
 
-(license LICENSE)
-
-(documentation https://url/to/documentation)
+(license MIT)
 
 (package
  (name mirror)
- (synopsis "A short synopsis")
- (description "A longer description")
- (depends ocaml dune)
- (tags
-  (topics "to describe" your project)))
-
-; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
+ (synopsis "Tool for rendering geometric patterns")
+ (description "Tool for rendering geometric patterns")
+ (depends ocaml dune cairo2 yojson ppx_deriving_yojson))

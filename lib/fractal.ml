@@ -1,6 +1,6 @@
 open Geometry
 
-type target = { s : shape; render : bool }
+type target = { s : shape; render : bool } [@@deriving yojson]
 
 type reflect = {
   target : target;
@@ -8,9 +8,9 @@ type reflect = {
   rot_offset : float;
   d : float;
   children : reflect list;
-}
+} [@@deriving yojson]
 
-type tree_root = target * reflect list
+type t = target * reflect list [@@deriving yojson]
 
 let generate_shape target new_pos rot_angle a =
   match target.s with

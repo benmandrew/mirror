@@ -1,3 +1,5 @@
 (library
  (name mirror)
- (libraries cairo2))
+ (libraries cairo2 yojson ppx_deriving_yojson)
+ (preprocess
+  (pps ppx_deriving_yojson)))

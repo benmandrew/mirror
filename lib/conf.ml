@@ -12,3 +12,12 @@ let init surface width =
     hwf = float_of_int width /. 2.;
     cr = Cairo.create surface;
   }
+
+let parse file =
+  let res =
+    Fractal.of_yojson @@
+    In_channel.with_open_text file Yojson.Safe.from_channel
+  in
+  match res with
+  | Ok r -> r
+  | Error m -> failwith m

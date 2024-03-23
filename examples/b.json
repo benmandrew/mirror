@@ -1,0 +1,72 @@
+[
+  {
+    "s": [
+      "P",
+      {
+        "p": { "x": 0.0, "y": 0.0 },
+        "r": 175.0,
+        "rot_angle": 0.0,
+        "n_segments": 10
+      }
+    ],
+    "render": false
+  },
+  [
+    {
+      "target": {
+        "s": [
+          "P",
+          {
+            "p": { "x": 0.0, "y": 0.0 },
+            "r": 175.0,
+            "rot_angle": 0.0,
+            "n_segments": 10
+          }
+        ],
+        "render": true
+      },
+      "n": 10,
+      "rot_offset": 0.0,
+      "d": 2.0,
+      "children": [
+        {
+          "target": {
+            "s": [
+              "P",
+              {
+                "p": { "x": 0.0, "y": 0.0 },
+                "r": 175.0,
+                "rot_angle": 0.0,
+                "n_segments": 10
+              }
+            ],
+            "render": true
+          },
+          "n": 10,
+          "rot_offset": 0.0,
+          "d": 2.0,
+          "children": [
+            {
+              "target": {
+                "s": [
+                  "P",
+                  {
+                    "p": { "x": 0.0, "y": 0.0 },
+                    "r": 175.0,
+                    "rot_angle": 0.0,
+                    "n_segments": 10
+                  }
+                ],
+                "render": true
+              },
+              "n": 5,
+              "rot_offset": 0.0,
+              "d": 2.0,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+]

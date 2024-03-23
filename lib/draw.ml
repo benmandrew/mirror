@@ -3,14 +3,16 @@ open Geometry
 
 let circle cf ?(lw = 2.0) (c : circle) =
   Cairo.set_line_width cf.cr lw;
-  Cairo.set_source_rgb cf.cr 1. 1. 1.;
+  let { r; g; b } = Conf.fg in
+  Cairo.set_source_rgb cf.cr r g b;
   Cairo.arc cf.cr (c.p.x +. cf.hwf) (c.p.y +. cf.hwf) ~r:c.r ~a1:0. ~a2:twopi;
   Cairo.stroke cf.cr
 
 let polygon cf ?(lw = 2.0) (p : polygon) =
   let angles = angles ~offset:p.rot_angle p.n_segments in
   Cairo.set_line_width cf.cr lw;
-  Cairo.set_source_rgb cf.cr 1. 1. 1.;
+  let { r; g; b } = Conf.fg in
+  Cairo.set_source_rgb cf.cr r g b;
   let offsets =
     List.map (fun a -> { x = p.r *. cos a; y = p.r *. sin a }) angles
   in

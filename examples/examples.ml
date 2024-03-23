@@ -72,7 +72,7 @@ let b cf =
   let t =
     {
       s =
-        P { p = { x = 0.; y = 0. }; r = 150.; n_segments = 10; rot_angle = 0. };
+        P { p = { x = 0.; y = 0. }; r = 175.; n_segments = 10; rot_angle = 0. };
       render = false;
     }
   in
@@ -86,10 +86,10 @@ let b cf =
     }
   in
   let r1 =
-    { target = t; n = 10; rot_offset = 0.; d = 2.0; children = [ r2 ] }
+    { target = { t with render = true }; n = 10; rot_offset = 0.; d = 2.0; children = [ r2 ] }
   in
   let r0 =
-    { target = t; n = 10; rot_offset = 0.; d = 2.0; children = [ r1 ] }
+    { target = { t with render = true }; n = 10; rot_offset = 0.; d = 2.0; children = [ r1 ] }
   in
   Set.iter (Draw.v cf ~lw:3.0) @@ v t [ r0 ]
 
@@ -123,20 +123,21 @@ let d cf =
       render = false;
     }
   in
+  let d = 2.7 in
   let r2 =
     {
       target = { t with render = true };
       n = 6;
       rot_offset = 0.;
-      d = 2.25;
+      d;
       children = [];
     }
   in
   let r1 =
-    { target = t; n = 6; rot_offset = 0.; d = 2.25; children = [ r2 ] }
+    { target = t; n = 6; rot_offset = 0.; d; children = [ r2 ] }
   in
   let r0 =
-    { target = t; n = 12; rot_offset = 0.; d = 2.25; children = [ r1 ] }
+    { target = t; n = 12; rot_offset = 0.; d; children = [ r1 ] }
   in
   Set.iter (Draw.v cf ~lw:5.0) @@ v t [ r0 ]
 
@@ -215,7 +216,8 @@ let run label f =
   let width = 1000 in
   let surface = Cairo.Image.create Cairo.Image.ARGB32 ~w:width ~h:width in
   let cf = Conf.init surface width in
-  Cairo.set_source_rgb cf.cr 0.0 0.0 0.0;
+  let Conf.{ r; g; b } = Conf.bg in
+  Cairo.set_source_rgb cf.cr r g b;
   Cairo.paint cf.cr;
   f cf;
   Cairo.PNG.write surface @@ Printf.sprintf "examples/output_%s.png" label

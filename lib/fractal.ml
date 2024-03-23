@@ -48,5 +48,4 @@ let v root children =
   in
   let r = get_r root.s in
   let child_shapes = List.concat @@ List.map (reflect center r) children in
-  Printf.printf "%d\n" @@ List.length child_shapes;
   Set.union initial @@ Set.of_list child_shapes

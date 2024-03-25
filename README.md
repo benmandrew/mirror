@@ -13,4 +13,4 @@ Experiments with repeating geometric patterns, inspired by "Islamic Patterns: An
   <img src="examples/output_d.png" width="49%" />
 </p>
 
-You can build the examples yourself with `dune build -- examples`.
+You can build the examples yourself with `dune build examples`.
